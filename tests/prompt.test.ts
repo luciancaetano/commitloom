@@ -45,9 +45,8 @@ describe("buildPrompt", () => {
   });
 
   it("uses provided instructions when given", () => {
-    expect(buildPrompt(base, "Always use emoji prefixes.")).toContain(
-      "Always use emoji prefixes."
-    );
+    const instructions = "---\nlanguage: en\n---\n\nAlways use emoji prefixes.";
+    expect(buildPrompt(base, instructions)).toContain("Always use emoji prefixes.");
   });
 
   it("falls back to default instructions when none provided", () => {

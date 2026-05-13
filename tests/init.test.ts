@@ -101,7 +101,7 @@ describe("runInit — .gitignore", () => {
     const lines = fs
       .readFileSync(gitignorePath, "utf8")
       .split("\n")
-      .filter((l) => l.includes(".commitloom.yml"));
+      .filter((l: string) => l.includes(".commitloom.yml"));
     expect(lines).toHaveLength(1);
   });
 
@@ -112,7 +112,7 @@ describe("runInit — .gitignore", () => {
     const lines = fs
       .readFileSync(gitignorePath, "utf8")
       .split("\n")
-      .filter((l) => l.includes(".commitloom.yml"));
+      .filter((l: string) => l.includes(".commitloom.yml"));
     expect(lines).toHaveLength(1);
   });
 });

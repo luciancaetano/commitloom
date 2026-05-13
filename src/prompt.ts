@@ -31,7 +31,7 @@ export function buildPrompt(
 ): string {
   const { meta, body, found } = parseFrontmatter(instructions?.trim() ?? "");
 
-  if (instructions !== null && !found) {
+  if (instructions && !found) {
     throw new Error(
       ".commitloom.md is missing the YAML frontmatter header.\n\n" +
       "Add a frontmatter block at the top of the file:\n\n" +
