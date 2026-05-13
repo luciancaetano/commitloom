@@ -2,6 +2,7 @@
 import { Command } from "commander";
 import { runInit } from "./commands/init.js";
 import { runCommitCommand } from "./commands/commit.js";
+import { runInstall, runUninstall } from "./commands/install.js";
 import type { GenerateOptions } from "./types.js";
 
 const MASCOT = `
@@ -169,6 +170,30 @@ Context variables:
   .action(async (options: GenerateOptions) => {
     try {
       await runCommitCommand({ ...options, params: extraParams });
+    } catch (err) {
+      process.stderr.write(`Error: ${(err as Error).message}\n`);
+      process.exit(1);
+    }
+  });
+
+program
+  .command("install")
+  .description("Install git-loom so 'git loom' works as an alias for 'cloom c'")
+  .action(() => {
+    try {
+      runInstall();
+    } catch (err) {
+      process.stderr.write(`Error: ${(err as Error).message}\n`);
+      process.exit(1);
+    }
+  });
+
+program
+  .command("uninstall")
+  .description("Remove the git-loom script installed by 'cloom install'")
+  .action(() => {
+    try {
+      runUninstall();
     } catch (err) {
       process.stderr.write(`Error: ${(err as Error).message}\n`);
       process.exit(1);
