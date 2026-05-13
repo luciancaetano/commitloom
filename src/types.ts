@@ -10,6 +10,8 @@ export interface CommitForgeConfig {
 
 export interface GitContext {
   diff: string;
+  stat: string;
+  recentLog: string;
   branch: string | null;
   repoRoot: string;
 }

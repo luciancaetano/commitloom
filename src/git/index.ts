@@ -24,21 +24,42 @@ export function getCurrentBranch(repoRoot: string): string | null {
 
 export function getStagedDiff(repoRoot: string): string {
   try {
-    return exec("git diff --cached", repoRoot);
+    return exec("git diff --cached -M", repoRoot);
   } catch {
     return "";
   }
 }
 
+export function getStagedStat(repoRoot: string): string {
+  try {
+    return exec("git diff --cached --stat", repoRoot);
+  } catch {
+    return "";
+  }
+}
+
+export function getRecentLog(repoRoot: string): string {
+  try {
+    return exec("git log --oneline -5", repoRoot);
+  } catch {
+    return "";
+  }
+}
 
 export function collectGitContext(): GitContext {
   const repoRoot = findRepoRoot();
   const branch = getCurrentBranch(repoRoot);
+  const diff = getStagedDiff(repoRoot);
 
-  const stagedDiff = getStagedDiff(repoRoot);
-  if (stagedDiff.length > 0) {
-    return { diff: stagedDiff, branch, repoRoot };
+  if (!diff) {
+    throw new Error("No staged changes found. Run `git add <files>` before using commitforge.");
   }
 
-  throw new Error("No staged changes found. Run `git add <files>` before using commitforge.");
+  return {
+    diff,
+    stat: getStagedStat(repoRoot),
+    recentLog: getRecentLog(repoRoot),
+    branch,
+    repoRoot,
+  };
 }

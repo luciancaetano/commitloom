@@ -49,14 +49,23 @@ describe("getCurrentBranch", () => {
 });
 
 describe("collectGitContext", () => {
-  it("returns staged diff when available", () => {
+  // mock order: show-toplevel, abbrev-ref HEAD, diff -M, diff --stat, log --oneline
+  function mockGitCalls(diff: string, stat = " foo.ts | 1 +", log = "abc feat: init") {
     mock
-      .mockReturnValueOnce("/repo")               // git rev-parse --show-toplevel
-      .mockReturnValueOnce("main")                // git rev-parse --abbrev-ref HEAD
-      .mockReturnValueOnce("diff --git a/x b/x\n+1"); // git diff --cached
+      .mockReturnValueOnce("/repo")   // git rev-parse --show-toplevel
+      .mockReturnValueOnce("main")    // git rev-parse --abbrev-ref HEAD
+      .mockReturnValueOnce(diff)      // git diff --cached -M
+      .mockReturnValueOnce(stat)      // git diff --cached --stat
+      .mockReturnValueOnce(log);      // git log --oneline -5
+  }
+
+  it("returns diff, stat and log when staged changes exist", () => {
+    mockGitCalls("diff --git a/x b/x\n+1", " x | 1 +", "abc feat: add x");
 
     const ctx = collectGitContext();
     expect(ctx.diff).toBe("diff --git a/x b/x\n+1");
+    expect(ctx.stat).toBe("x | 1 +");
+    expect(ctx.recentLog).toBe("abc feat: add x");
     expect(ctx.branch).toBe("main");
     expect(ctx.repoRoot).toBe("/repo");
   });
@@ -65,7 +74,7 @@ describe("collectGitContext", () => {
     mock
       .mockReturnValueOnce("/repo")
       .mockReturnValueOnce("main")
-      .mockReturnValueOnce(""); // empty staged diff
+      .mockReturnValueOnce(""); // empty diff
 
     expect(() => collectGitContext()).toThrow("No staged changes found");
   });
@@ -74,9 +83,23 @@ describe("collectGitContext", () => {
     mock
       .mockReturnValueOnce("/repo")
       .mockReturnValueOnce("HEAD")
-      .mockReturnValueOnce("diff --git a/x b/x");
+      .mockReturnValueOnce("diff --git a/x b/x")
+      .mockReturnValueOnce(" x | 1 +")
+      .mockReturnValueOnce("");
+
+    expect(collectGitContext().branch).toBeNull();
+  });
+
+  it("includes empty stat and log when git commands fail", () => {
+    mock
+      .mockReturnValueOnce("/repo")
+      .mockReturnValueOnce("main")
+      .mockReturnValueOnce("diff --git a/x b/x")
+      .mockImplementationOnce(() => { throw new Error("fail"); }) // stat fails
+      .mockImplementationOnce(() => { throw new Error("fail"); }); // log fails
 
     const ctx = collectGitContext();
-    expect(ctx.branch).toBeNull();
+    expect(ctx.stat).toBe("");
+    expect(ctx.recentLog).toBe("");
   });
 });

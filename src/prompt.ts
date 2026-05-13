@@ -12,25 +12,41 @@ export function buildPrompt(
 ): string {
   const effectiveInstructions = instructions?.trim() || DEFAULT_INSTRUCTIONS;
 
-  const branchLine =
-    gitContext.branch
-      ? `Current branch: ${gitContext.branch}`
-      : "Current branch: unknown";
-
-  return [
+  const parts: string[] = [
     "You are a git commit message generator.",
     "",
     "## Instructions",
     effectiveInstructions,
     "",
     "## Repository Context",
-    branchLine,
+    `Branch: ${gitContext.branch ?? "unknown"}`,
+  ];
+
+  if (gitContext.recentLog) {
+    parts.push("Recent commits:");
+    parts.push(
+      gitContext.recentLog
+        .split("\n")
+        .map((line) => `  ${line}`)
+        .join("\n")
+    );
+  }
+
+  if (gitContext.stat) {
+    parts.push("");
+    parts.push("## Changed files");
+    parts.push(gitContext.stat);
+  }
+
+  parts.push(
     "",
-    "## Staged changes (git diff --cached):",
+    "## Staged changes (git diff --cached -M):",
     "```diff",
     gitContext.diff,
     "```",
     "",
-    "Generate the commit message now. Output only the commit message with no additional text, explanation, or markdown formatting.",
-  ].join("\n");
+    "Generate the commit message now. Output only the commit message — a single line, no explanation."
+  );
+
+  return parts.join("\n");
 }
