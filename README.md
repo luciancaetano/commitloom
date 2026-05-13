@@ -1,6 +1,24 @@
 # CommitLoom
 
-**AI-powered git commit message generator.** Reads your staged diff, follows your rules, and outputs a clean [Conventional Commit](https://www.conventionalcommits.org/) — then asks before it commits.
+```
+         ✦   ˚   ✦
+        ╭─────────╮
+        │  ◕   ◕ │
+        ╰────┬────╯
+  ◉━━━━━━━━━━┻━━━━━━━━━━◉
+  ┃   ╭─────────────╮    ┃
+  ┃   │ ●  ───────  │    ┃
+  ┃   │    ───────  │    ┃
+  ┃   │    ─────    │    ┃
+  ┃   │ ●  ───────  │    ┃
+  ┃   ╰─────────────╯    ┃
+  ◉━━━━━━━━━━━━━━━━━━━━━◉
+
+    commitloom · git loom · weave your commits
+```
+
+**Stop burning tokens on commit messages.**  
+AI-powered git commit message generator. Reads your staged diff, follows your rules, and outputs a clean [Conventional Commit](https://www.conventionalcommits.org/) — then asks before it commits.
 
 ---
 
