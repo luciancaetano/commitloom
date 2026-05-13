@@ -4,6 +4,7 @@ import { runInit } from "./commands/init.js";
 import { runCommitCommand } from "./commands/commit.js";
 import { runInstall, runUninstall } from "./commands/install.js";
 import type { GenerateOptions } from "./types.js";
+import { version } from "../package.json";
 
 const MASCOT = `
          ✦   ˚   ✦
@@ -112,7 +113,7 @@ const program = new Command();
 program
   .name("commitloom")
   .description("AI-powered git commit message generator")
-  .version("1.0.0")
+  .version(version)
   .addHelpText("before", MASCOT)
   .addHelpText(
     "after",
