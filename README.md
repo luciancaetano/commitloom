@@ -92,6 +92,7 @@ maxTokens: 512
 | Provider                               | `provider` value | Notes                                  |
 |----------------------------------------|------------------|----------------------------------------|
 | [Ollama](https://ollama.com)           | `ollama`         | Local, free, no key needed             |
+| [LM Studio](https://lmstudio.ai)       | `lmstudio`       | Local, free, no key needed             |
 | [OpenAI](https://platform.openai.com)  | `openai`         | Needs `apiKey` or `OPENAI_API_KEY`     |
 | [OpenRouter](https://openrouter.ai)    | `openrouter`     | Needs `apiKey` or `OPENROUTER_API_KEY` |
 | [Anthropic](https://www.anthropic.com) | `anthropic`      | Needs `apiKey` or `ANTHROPIC_API_KEY`  |
@@ -102,6 +103,11 @@ maxTokens: 512
 # Ollama (local)
 provider: ollama
 model: qwen2.5-coder:7b
+
+# LM Studio (local — start the server in LM Studio → Developer tab)
+provider: lmstudio
+model: gemma-4-e2b-it
+baseUrl: http://localhost:1234/v1
 
 # OpenAI
 provider: openai
@@ -193,10 +199,12 @@ Available models:
 | `qwen2.5-coder:14b`     | 12 GB | 10 GB    | ✅ very slow       | Better    |
 | `qwen3:14b`             | 12 GB | 10 GB    | ✅ very slow       | Very good |
 | `devstral`              | 16 GB | 14 GB    | ❌ not recommended | Excellent |
+| `hf.co/unsloth/gemma-4-E2B-it-GGUF:UD-Q8_K_XL` | ~3 GB | ~3 GB | ✅ fast | Very good |
 
 **Recommendations:**
 - **CPU only (fast)** — `phi4-mini`: 4 GB RAM, runs without a GPU, though results are not as precise
 - **CPU only (precise)** — `qwen2.5-coder:7b` ⭐: a bit slower on CPU but noticeably more accurate commit messages
+- **Hugging Face via Ollama** — `hf.co/unsloth/gemma-4-E2B-it-GGUF:UD-Q8_K_XL`: Gemma 4 quantized by Unsloth; showed consistently good results in testing — worth trying if you want a lightweight model beyond the standard Ollama library
 
 > Models ≤ 8B are usable on CPU (3–10 tokens/s). Apple Silicon handles larger models better due to unified memory.
 

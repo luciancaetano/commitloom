@@ -3,6 +3,7 @@ import { OllamaProvider } from "./ollama.js";
 import { OpenAIProvider } from "./openai.js";
 import { OpenRouterProvider } from "./openrouter.js";
 import { AnthropicProvider } from "./anthropic.js";
+import { LMStudioProvider } from "./lmstudio.js";
 
 export function createProvider(config: commitloomConfig): LLMProvider {
   switch (config.provider.toLowerCase()) {
@@ -14,9 +15,11 @@ export function createProvider(config: commitloomConfig): LLMProvider {
       return new OpenRouterProvider();
     case "anthropic":
       return new AnthropicProvider();
+    case "lmstudio":
+      return new LMStudioProvider();
     default:
       throw new Error(
-        `Unknown provider "${config.provider}". Supported: ollama, openai, openrouter, anthropic.`
+        `Unknown provider "${config.provider}". Supported: ollama, openai, openrouter, anthropic, lmstudio.`
       );
   }
 }
