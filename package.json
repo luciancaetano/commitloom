@@ -1,0 +1,30 @@
+{
+  "name": "commitforge",
+  "version": "1.0.0",
+  "description": "AI-powered git commit message generator",
+  "bin": {
+    "commitforge": "./dist/index.js",
+    "cmf": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.2",
+    "commander": "^12.1.0",
+    "js-yaml": "^4.1.0",
+    "ollama": "^0.6.3",
+    "openai": "^6.37.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
