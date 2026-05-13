@@ -121,11 +121,11 @@ export async function runCommitCommand(options: GenerateOptions): Promise<void> 
 
   while (true) {
     printMessage(message);
-    process.stderr.write("\n[s] commit  [e] edit  [r] regenerate  [n] abort\n");
+    process.stderr.write("\n[y] commit  [e] edit  [r] regenerate  [n] abort\n");
 
     const key = await pressKey("> ");
 
-    if (key === "s" || key === "y") {
+    if (key === "y") {
       doCommit(gitContext.repoRoot, message);
       return;
     }
