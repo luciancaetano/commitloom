@@ -81,12 +81,12 @@ maxTokens: 512
 
 ### Supported providers
 
-| Provider | `provider` value | Default `baseUrl` |
-|---|---|---|
-| [Ollama](https://ollama.com) (local) | `ollama` | `http://localhost:11434` |
-| [OpenAI](https://platform.openai.com) | `openai` | `https://api.openai.com/v1` |
-| [OpenRouter](https://openrouter.ai) | `openrouter` | `https://openrouter.ai/api/v1` |
-| [Anthropic](https://www.anthropic.com) | `anthropic` | `https://api.anthropic.com` |
+| Provider                               | `provider` value | Default `baseUrl`              |
+|----------------------------------------|------------------|--------------------------------|
+| [Ollama](https://ollama.com) (local)   | `ollama`         | `http://localhost:11434`       |
+| [OpenAI](https://platform.openai.com)  | `openai`         | `https://api.openai.com/v1`    |
+| [OpenRouter](https://openrouter.ai)    | `openrouter`     | `https://openrouter.ai/api/v1` |
+| [Anthropic](https://www.anthropic.com) | `anthropic`      | `https://api.anthropic.com`    |
 
 #### Ollama (local, no cost)
 
@@ -137,6 +137,74 @@ The default template follows the full [Conventional Commits v1.0.0](https://www.
 - Body and footer usage
 - Breaking change format (`feat!:` + `BREAKING CHANGE:` footer)
 - A decision guide and concrete examples
+
+---
+
+## Setting up Ollama (local, free, no API key)
+
+Ollama lets you run LLMs fully offline on your own machine. It's the default provider for CommitPilot.
+
+### Install Ollama
+
+**macOS**
+```bash
+# Download the app from the official site and drag to Applications
+# https://ollama.com/download
+```
+Or via Homebrew:
+```bash
+brew install ollama
+```
+
+**Linux**
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+**Windows**
+
+Download the `.exe` installer from [ollama.com/download](https://ollama.com/download), run it, and follow the prompts. The `ollama` command will be available in PowerShell/CMD after installation.
+
+---
+
+### Pull the recommended model
+
+```bash
+ollama pull qwen2.5-coder:7b
+```
+
+This is the default model in `.commitpilot.yml`. It's fast, lightweight, and purpose-built for code understanding.
+
+---
+
+### Alternative models
+
+Pick a model based on your hardware. All run locally with Ollama.
+
+| Model                   | Pull command                        | RAM needed | GPU VRAM | Runs on CPU?      | Quality   |
+|-------------------------|-------------------------------------|------------|----------|-------------------|-----------|
+| `qwen2.5-coder:7b` ⭐    | `ollama pull qwen2.5-coder:7b`      | 8 GB       | 6 GB     | ✅ slow            | Good      |
+| `qwen2.5-coder:14b`     | `ollama pull qwen2.5-coder:14b`     | 12 GB      | 10 GB    | ✅ very slow       | Better    |
+| `qwen2.5-coder:32b`     | `ollama pull qwen2.5-coder:32b`     | 24 GB      | 20 GB    | ⚠️ impractical     | Excellent |
+| `qwen3:8b`              | `ollama pull qwen3:8b`              | 8 GB       | 6 GB     | ✅ slow            | Better    |
+| `qwen3:14b`             | `ollama pull qwen3:14b`             | 12 GB      | 10 GB    | ✅ very slow       | Very good |
+| `qwen3:32b`             | `ollama pull qwen3:32b`             | 24 GB      | 20 GB    | ⚠️ impractical     | Excellent |
+| `deepseek-coder-v2:16b` | `ollama pull deepseek-coder-v2:16b` | 16 GB      | 12 GB    | ⚠️ very slow       | Very good |
+| `codellama:13b`         | `ollama pull codellama:13b`         | 12 GB      | 10 GB    | ✅ slow            | Good      |
+| `devstral`              | `ollama pull devstral`              | 16 GB      | 14 GB    | ❌ not recommended | Excellent |
+
+**CPU-only notes:**
+- Models **≤ 8B** are usable on CPU (expect 3–10 tokens/sec on a modern machine)
+- Models **14B** are tolerable on CPU with 32 GB RAM (1–3 tokens/sec)
+- Models **32B+** are impractical without a GPU — responses take minutes per commit
+- Apple Silicon (M1/M2/M3) uses unified memory, so it handles larger models much better than x86 CPU-only
+
+**To use a different model**, edit `.commitpilot.yml`:
+```yaml
+provider: ollama
+model: qwen3:14b        # ← swap here
+baseUrl: http://localhost:11434
+```
 
 ---
 
