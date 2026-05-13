@@ -6,10 +6,23 @@
     "commitforge": "./dist/index.js",
     "cmf": "./dist/index.js"
   },
+  "author": "Lucian Caetano",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luciancaetano/commitforge"
+  },
+  "homepage": "https://github.com/luciancaetano/commitforge#readme",
+  "bugs": {
+    "url": "https://github.com/luciancaetano/commitforge/issues"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/index.ts",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.2",
@@ -28,7 +41,5 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "license": "MIT",
-  "author": "Lucian Caetano"
+  }
 }

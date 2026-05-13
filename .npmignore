@@ -1,0 +1,25 @@
+# Source
+src/
+
+# Tests
+tests/
+vitest.config.ts
+tsconfig.test.json
+
+# TypeScript config (not needed at runtime)
+tsconfig.json
+
+# Source maps
+dist/**/*.map
+
+# Repo config files (not part of the package)
+.commitforge.yml
+.commitforge.md
+.gitignore
+
+# CI/CD
+.github/
+
+# Dev artifacts
+*.log
+.env

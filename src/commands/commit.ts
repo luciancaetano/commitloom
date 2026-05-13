@@ -17,9 +17,10 @@ function ask(question: string): Promise<boolean> {
 }
 
 function runCommit(repoRoot: string, message: string): void {
-  execSync(`git commit -m ${JSON.stringify(message)}`, {
+  execSync("git commit -F -", {
     cwd: repoRoot,
-    stdio: "inherit",
+    input: message,
+    stdio: ["pipe", "inherit", "inherit"],
   });
 }
 

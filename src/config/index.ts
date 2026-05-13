@@ -30,7 +30,7 @@ export function loadConfig(repoRoot: string, overridePath?: string): CommitForge
     throw new Error(`Failed to parse ${configPath}: ${(err as Error).message}`);
   }
 
-  if (typeof raw !== "object" || raw === null) {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
     throw new Error(`Invalid config file at ${configPath}: expected a YAML mapping.`);
   }
 
