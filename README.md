@@ -1,4 +1,8 @@
-# CommitForge
+# CommitPilot
+
+<p align="center">
+  <img src="logo.png" alt="CommitPilot" width="250" />
+</p>
 
 **Stop burning tokens on commit messages.**
 
@@ -9,7 +13,7 @@ AI-powered git commit message generator that runs locally or against any LLM pro
 ## Install
 
 ```bash
-npm install -g commitforge
+npm install -g commitpilot
 ```
 
 ---
@@ -17,51 +21,51 @@ npm install -g commitforge
 ## Quick start
 
 ```bash
-# 1. Initialize CommitForge in your repo
-commitforge init
+# 1. Initialize CommitPilot in your repo
+commitpilot init
 
-# 2. Edit .commitforge.yml to point at your provider
+# 2. Edit .commitpilot.yml to point at your provider
 #    (it's already gitignored — safe for API keys)
 
 # 3. Stage your changes and generate a commit
 git add .
-commitforge c
+commitpilot c
 ```
 
 ---
 
 ## Commands
 
-### `commitforge init`
+### `commitpilot init`
 
-Sets up CommitForge in the current repository.
+Sets up CommitPilot in the current repository.
 
-- Creates `.commitforge.yml` with provider configuration
-- Creates `.commitforge.md` with Conventional Commits instructions
-- Adds `.commitforge.yml` to `.gitignore` automatically
-- Never overwrites `.commitforge.md` if it already exists
+- Creates `.commitpilot.yml` with provider configuration
+- Creates `.commitpilot.md` with Conventional Commits instructions
+- Adds `.commitpilot.yml` to `.gitignore` automatically
+- Never overwrites `.commitpilot.md` if it already exists
 
 ```bash
-commitforge init
+commitpilot init
 ```
 
-### `commitforge commit` · alias `commitforge c`
+### `commitpilot commit` · alias `commitpilot c`
 
 Reads your staged diff, generates a commit message via your configured LLM, shows it to you, and asks for confirmation before running `git commit`.
 
 ```bash
-commitforge commit
-commitforge c        # short alias
+commitpilot commit
+commitpilot c        # short alias
 
 # Override config or instructions for a single run
-commitforge c --config path/to/.commitforge.yml
-commitforge c --instructions path/to/rules.md
-commitforge c --verbose
+commitpilot c --config path/to/.commitpilot.yml
+commitpilot c --instructions path/to/rules.md
+commitpilot c --verbose
 ```
 
 ---
 
-## Configuration (`.commitforge.yml`)
+## Configuration (`.commitpilot.yml`)
 
 This file is **gitignored by default** — safe to store API keys.
 
@@ -121,7 +125,7 @@ API keys can also be set via environment variables:
 
 ---
 
-## Customizing commit rules (`.commitforge.md`)
+## Customizing commit rules (`.commitpilot.md`)
 
 This file is committed to your repo and shared with your team. It contains the instructions sent to the LLM on every run. Edit it to enforce your project's conventions.
 
@@ -142,10 +146,10 @@ The default template follows the full [Conventional Commits v1.0.0](https://www.
 git add <files>
        │
        ▼
-commitforge commit
+commitpilot commit
        │
-       ├─ reads .commitforge.yml   → provider + model config
-       ├─ reads .commitforge.md    → commit rules for the LLM
+       ├─ reads .commitpilot.yml   → provider + model config
+       ├─ reads .commitpilot.md    → commit rules for the LLM
        ├─ runs git diff --cached   → staged changes only
        │
        ▼
@@ -156,7 +160,7 @@ commitforge commit
        │
   shown to user
        │
-  [s/n] confirm?
+  [y/n] confirm?
        │
        ▼
   git commit -m "..."

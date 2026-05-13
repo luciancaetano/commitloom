@@ -1,10 +1,10 @@
 {
-  "name": "commitforge",
+  "name": "commitpilot",
   "version": "0.1.1",
   "description": "AI-powered git commit message generator",
   "bin": {
-    "commitforge": "./dist/index.js",
-    "cmf": "./dist/index.js"
+    "commitpilot": "./dist/index.js",
+    "cmp": "./dist/index.js"
   },
   "author": "Lucian Caetano",
   "license": "MIT",

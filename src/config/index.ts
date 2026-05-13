@@ -1,12 +1,12 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
-import type { CommitForgeConfig } from "../types.js";
+import type { CommitPilotConfig } from "../types.js";
 
-const CONFIG_FILE = ".commitforge.yml";
-const INSTRUCTIONS_FILE = ".commitforge.md";
+const CONFIG_FILE = ".commitpilot.yml";
+const INSTRUCTIONS_FILE = ".commitpilot.md";
 
-const DEFAULTS: CommitForgeConfig = {
+const DEFAULTS: CommitPilotConfig = {
   provider: "ollama",
   model: "qwen2.5-coder:7b",
   baseUrl: undefined,
@@ -16,7 +16,7 @@ const DEFAULTS: CommitForgeConfig = {
   maxTokens: 512,
 };
 
-export function loadConfig(repoRoot: string, overridePath?: string): CommitForgeConfig {
+export function loadConfig(repoRoot: string, overridePath?: string): CommitPilotConfig {
   const configPath = overridePath ?? path.join(repoRoot, CONFIG_FILE);
 
   if (!fs.existsSync(configPath)) {

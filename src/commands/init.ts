@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { findRepoRoot } from "../git/index.js";
 
-const DEFAULT_CONFIG = `# CommitForge configuration
+const DEFAULT_CONFIG = `# CommitPilot configuration
 # This file is gitignored — safe to store API keys here.
 #
 # Supported providers: ollama, openai, openrouter, anthropic
@@ -178,7 +178,7 @@ PKCE removes the need for a client secret on public clients.
 \`\`\`
 refactor(config)!: rename baseUrl to endpoint across all providers
 
-BREAKING CHANGE: the \`baseUrl\` key in .commitforge.yml must be renamed
+BREAKING CHANGE: the \`baseUrl\` key in .commitpilot.yml must be renamed
 to \`endpoint\`. Existing configs will fail to load until updated.
 \`\`\`
 
@@ -210,23 +210,23 @@ function addToGitignore(repoRoot: string, entry: string): void {
 export function runInit(): void {
   const repoRoot = findRepoRoot();
 
-  const configPath = path.join(repoRoot, ".commitforge.yml");
+  const configPath = path.join(repoRoot, ".commitpilot.yml");
   if (!fs.existsSync(configPath)) {
     fs.writeFileSync(configPath, DEFAULT_CONFIG, "utf8");
-    process.stderr.write(`  created .commitforge.yml\n`);
+    process.stderr.write(`  created .commitpilot.yml\n`);
   } else {
-    process.stderr.write(`  .commitforge.yml already exists — skipped\n`);
+    process.stderr.write(`  .commitpilot.yml already exists — skipped\n`);
   }
 
-  const instructionsPath = path.join(repoRoot, ".commitforge.md");
+  const instructionsPath = path.join(repoRoot, ".commitpilot.md");
   if (!fs.existsSync(instructionsPath)) {
     fs.writeFileSync(instructionsPath, DEFAULT_INSTRUCTIONS, "utf8");
-    process.stderr.write(`  created .commitforge.md\n`);
+    process.stderr.write(`  created .commitpilot.md\n`);
   } else {
-    process.stderr.write(`  .commitforge.md already exists — skipped\n`);
+    process.stderr.write(`  .commitpilot.md already exists — skipped\n`);
   }
 
-  addToGitignore(repoRoot, ".commitforge.yml");
+  addToGitignore(repoRoot, ".commitpilot.yml");
 
-  process.stderr.write("\nDone. Edit .commitforge.yml to configure your provider.\n");
+  process.stderr.write("\nDone. Edit .commitpilot.yml to configure your provider.\n");
 }
