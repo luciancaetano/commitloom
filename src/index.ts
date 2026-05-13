@@ -4,12 +4,33 @@ import { runInit } from "./commands/init.js";
 import { runCommitCommand } from "./commands/commit.js";
 import type { GenerateOptions } from "./types.js";
 
+const MASCOT = `
+         ✦   ˚   ✦
+        ╭─────────╮
+        │  ◕   ◕  │
+        ╰────┬────╯
+  ◉━━━━━━━━━━┻━━━━━━━━━━◉
+  ┃   ╭─────────────╮   ┃
+  ┃   │ ●  ───────  │   ┃
+  ┃   │    ───────  │   ┃
+  ┃   │    ─────    │   ┃
+  ┃   │ ●  ───────  │   ┃
+  ┃   ╰─────────────╯   ┃
+  ◉━━━━━━━━━━━━━━━━━━━━━◉
+
+    commitloom · cloom · weave your commits
+`;
+
 const program = new Command();
 
 program
   .name("commitloom")
   .description("AI-powered git commit message generator")
-  .version("1.0.0");
+  .version("1.0.0")
+  .addHelpText("before", MASCOT)
+  .action(() => {
+    program.help({ error: false });
+  });
 
 program
   .command("init")

@@ -1,12 +1,42 @@
 {
   "name": "commitloom",
   "version": "0.1.2",
-  "description": "AI-powered git commit message generator",
+  "description": "AI-powered CLI that generates Conventional Commits from your staged diff — works with Ollama, OpenAI, Anthropic, and OpenRouter",
+  "keywords": [
+    "git",
+    "commit",
+    "commit-message",
+    "conventional-commits",
+    "ai",
+    "llm",
+    "ollama",
+    "openai",
+    "anthropic",
+    "openrouter",
+    "cli",
+    "generator",
+    "automation",
+    "developer-tools",
+    "git-hooks",
+    "devtools",
+    "local-llm",
+    "commit-generator",
+    "ai-commit",
+    "staged-diff"
+  ],
   "bin": {
     "commitloom": "./dist/index.js",
     "cloom": "./dist/index.js"
   },
-  "author": "Lucian Caetano",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": {
+    "name": "Lucian Caetano",
+    "url": "https://github.com/luciancaetano"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
