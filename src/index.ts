@@ -98,6 +98,13 @@ function splitArgv(rawArgv: string[]): { argv: string[]; params: Record<string, 
   return { argv: [...before, ...clean], params: parseExtraParams(extra) };
 }
 
+// When invoked as `git loom`, inject "commit" so the CLI routes correctly.
+import * as path from "path";
+const invokedAs = path.basename(process.argv[1] ?? "", ".js");
+if (invokedAs === "git-loom" && !process.argv.slice(2).some((a) => !a.startsWith("-"))) {
+  process.argv.splice(2, 0, "commit");
+}
+
 const { argv, params: extraParams } = splitArgv(process.argv);
 
 const program = new Command();

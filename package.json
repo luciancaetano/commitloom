@@ -27,7 +27,7 @@
   "bin": {
     "commitloom": "./dist/index.js",
     "cloom": "./dist/index.js",
-    "git-loom": "./dist/git-loom.js"
+    "git-loom": "./dist/index.js"
   },
   "files": [
     "dist/",
