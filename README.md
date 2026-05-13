@@ -195,8 +195,8 @@ Available models:
 | `devstral`              | 16 GB | 14 GB    | ❌ not recommended | Excellent |
 
 **Recommendations:**
-- **CPU only** — `phi4-mini`: 4 GB RAM, runs fast enough without a GPU
-- **GPU 8 GB VRAM** — `phi4:14b`: fits exactly in 8 GB, noticeably better quality than 7B models
+- **CPU only (fast)** — `phi4-mini`: 4 GB RAM, runs without a GPU, though results are not as precise
+- **CPU only (precise)** — `qwen2.5-coder:7b` ⭐: a bit slower on CPU but noticeably more accurate commit messages
 
 > Models ≤ 8B are usable on CPU (3–10 tokens/s). Apple Silicon handles larger models better due to unified memory.
 
